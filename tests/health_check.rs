@@ -1,5 +1,5 @@
 use once_cell::sync::Lazy;
-use secrecy::{Secret, ExposeSecret};
+use secrecy::ExposeSecret;
 use sqlx::{Connection, Executor, PgConnection, PgPool};
 use std::net::TcpListener;
 use uuid::Uuid;
