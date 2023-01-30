@@ -1,9 +1,10 @@
-use sqlx::postgres::PgPoolOptions;
 use crate::{
+    configuration::Settings,
     email_client::EmailClient,
-    routes::{health_check, subscribe}, configuration::Settings,
+    routes::{health_check, subscribe},
 };
 use actix_web::{dev::Server, web, App, HttpServer};
+use sqlx::postgres::PgPoolOptions;
 use sqlx::PgPool;
 use tracing_actix_web::TracingLogger;
 
