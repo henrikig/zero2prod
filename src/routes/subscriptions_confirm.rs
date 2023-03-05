@@ -22,7 +22,6 @@ impl std::fmt::Debug for ConfirmationError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         error_chain_fmt(self, f)
     }
-    
 }
 
 impl ResponseError for ConfirmationError {
@@ -30,13 +29,15 @@ impl ResponseError for ConfirmationError {
         match self {
             ConfirmationError::UnknownToken => StatusCode::UNAUTHORIZED,
             ConfirmationError::UnexpectedError(_) => StatusCode::INTERNAL_SERVER_ERROR,
-
         }
     }
 }
 
 #[tracing::instrument(name = "Confirm a pending subscriber", skip(parameters, pool))]
-pub async fn confirm(parameters: web::Query<Parameters>, pool: web::Data<PgPool>) -> Result<HttpResponse, ConfirmationError> {
+pub async fn confirm(
+    parameters: web::Query<Parameters>,
+    pool: web::Data<PgPool>,
+) -> Result<HttpResponse, ConfirmationError> {
     let subscriber_id = get_subscriber_id_from_token(&pool, &parameters.subscription_token)
         .await
         .context("Failed to get the subscriber id associated with the provided token.")?
