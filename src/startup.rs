@@ -3,8 +3,13 @@ use crate::{
     email_client::EmailClient,
     routes::{confirm, health_check, home, login, login_form, publish_newsletter, subscribe},
 };
-use actix_web::{dev::Server, web::{self, Data}, App, HttpServer};
-use secrecy::Secret;
+use actix_web::{
+    dev::Server,
+    web::{self, Data},
+    App, HttpServer, cookie::Key,
+};
+use actix_web_flash_messages::{FlashMessagesFramework, storage::CookieMessageStore};
+use secrecy::{Secret, ExposeSecret};
 use sqlx::postgres::PgPoolOptions;
 use sqlx::PgPool;
 use tracing_actix_web::TracingLogger;
@@ -77,8 +82,13 @@ pub fn run(
     let db_pool = web::Data::new(db_pool);
     let email_client = web::Data::new(email_client);
     let base_url = web::Data::new(ApplicationBaseUrl(base_url));
+    let message_store = CookieMessageStore::builder(
+        Key::from(hmac_secret.expose_secret().as_bytes())
+    ).build();
+    let message_framework = FlashMessagesFramework::builder(message_store).build();
     let server = HttpServer::new(move || {
         App::new()
+            .wrap(message_framework.clone())
             .wrap(TracingLogger::default())
             .route("/", web::get().to(home))
             .route("/login", web::get().to(login_form))
