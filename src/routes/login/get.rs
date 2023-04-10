@@ -1,4 +1,4 @@
-use actix_web::{http::header::ContentType, HttpResponse, HttpRequest, cookie::{Cookie, time::Duration}};
+use actix_web::{http::header::ContentType, HttpResponse, HttpRequest, cookie::{Cookie}};
 
 pub async fn login_form(request: HttpRequest) -> HttpResponse {
     let error_html: String = match request.cookie("_flash") {
@@ -40,5 +40,5 @@ placeholder="Enter Username"
         ));
 
     response.add_removal_cookie(&Cookie::new("_flash", "")).unwrap();
-    return response;
+    response
 }
