@@ -18,7 +18,7 @@ actix-web = "4"
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "rt"] }
 serde = { version = "1", features = ["derive"]}
 config = "0.13"
-uuid = { version = "1", features = ["v4"] }
+uuid = { version = "1", features = ["v4", "serde"] }
 chrono = { version = "0.4.22", default-features = false, features = ["clock"] }
 env_logger = "0.9"
 log = "0.4"
@@ -44,6 +44,7 @@ argon2 = { version = "0.4", features = ["std"] }
 urlencoding = "2"
 htmlescape = "0.3"
 actix-web-flash-messages = { version = "0.4", features = ["cookies"] }
+actix-session = { version = "0.6", features = ["redis-rs-tls-session"] }
 
 [dependencies.sqlx]
 version = "0.6"
