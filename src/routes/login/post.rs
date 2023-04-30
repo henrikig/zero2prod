@@ -26,7 +26,7 @@ pub struct FormData {
 pub async fn login(
     form: web::Form<FormData>,
     pool: web::Data<PgPool>,
-    session: Session
+    session: Session,
 ) -> Result<HttpResponse, InternalError<LoginError>> {
     let credentials = Credentials {
         username: form.0.username,
@@ -36,6 +36,7 @@ pub async fn login(
 
     match validate_credentials(credentials, &pool).await {
         Ok(user_id) => {
+            session.renew();
             session
                 .insert("user_id", user_id)
                 .map_err(|e| login_redirect(LoginError::UnexpectedError(e.into())))?;
