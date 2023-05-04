@@ -1,7 +1,8 @@
+use actix_session::Session;
+use actix_session::SessionExt;
+use actix_web::dev::Payload;
+use actix_web::{FromRequest, HttpRequest};
 use std::future::{ready, Ready};
-
-use actix_session::{Session, SessionExt};
-use actix_web::FromRequest;
 use uuid::Uuid;
 
 pub struct TypedSession(Session);
@@ -26,10 +27,7 @@ impl FromRequest for TypedSession {
     type Error = <Session as FromRequest>::Error;
     type Future = Ready<Result<TypedSession, Self::Error>>;
 
-    fn from_request(
-        req: &actix_web::HttpRequest,
-        _payload: &mut actix_web::dev::Payload,
-    ) -> Self::Future {
+    fn from_request(req: &HttpRequest, _payload: &mut Payload) -> Self::Future {
         ready(Ok(TypedSession(req.get_session())))
     }
 }
