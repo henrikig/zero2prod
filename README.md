@@ -5,6 +5,6 @@ and Docker🦀
 
 ##### Progress
 
-| Chapter    | Page |
-| ---------- | ---- |
-| Chapter 11 | 406  |
+| Chapter          | Page |
+| ---------------- | ---- |
+| Chapter 10.8.2.1 | 499  |
