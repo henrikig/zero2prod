@@ -36,7 +36,6 @@ pub async fn validate_credentials(
     {
         user_id = Some(stored_user_id);
         expected_password_hash = stored_password_hash;
-    } else {
     }
 
     spawn_blocking_with_tracing(move || {
