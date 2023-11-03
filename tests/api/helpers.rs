@@ -131,9 +131,9 @@ impl TestApp {
     }
 }
 
-pub fn assert_is_redirect_response(response: &reqwest::Response, location: &str) {
+pub fn assert_is_redirect_to(response: &reqwest::Response, location: &str) {
     assert_eq!(response.status().as_u16(), 303);
-    assert_eq!(response.headers().get("Location").unwrap(), location)
+    assert_eq!(response.headers().get("Location").unwrap(), location);
 }
 
 pub struct TestUser {

@@ -1,4 +1,4 @@
-use crate::helpers::{assert_is_redirect_response, spawn_app};
+use crate::helpers::{assert_is_redirect_to, spawn_app};
 
 #[tokio::test]
 async fn an_error_flash_message_is_set_on_failure() {
@@ -10,7 +10,7 @@ async fn an_error_flash_message_is_set_on_failure() {
     });
     let response = app.post_login(&login).await;
 
-    assert_is_redirect_response(&response, "/login");
+    assert_is_redirect_to(&response, "/login");
 
     let html_page = app.get_login_html().await;
     assert!(html_page.contains(r#"<p><i>Authentication failed</i></p>"#));
@@ -30,7 +30,7 @@ async fn redirect_to_admin_dashboard_after_login_success() {
     });
 
     let response = app.post_login(&login).await;
-    assert_is_redirect_response(&response, "/admin/dashboard");
+    assert_is_redirect_to(&response, "/admin/dashboard");
 
     // Act - part 2
     let html_page = app.get_admin_dashboard_html().await;
