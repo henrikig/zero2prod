@@ -1,10 +1,11 @@
 use crate::{
+    authentication::reject_anonymous_users,
     configuration::{DatabaseSettings, Settings},
     email_client::EmailClient,
     routes::{
         admin_dashboard, change_password, change_password_form, confirm, health_check, home,
         log_out, login, login_form, publish_newsletter, subscribe,
-    }, authentication::reject_anonymous_users,
+    },
 };
 use actix_session::{storage::RedisSessionStore, SessionMiddleware};
 use actix_web::{

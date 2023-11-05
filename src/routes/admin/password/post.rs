@@ -4,10 +4,10 @@ use secrecy::ExposeSecret;
 use secrecy::Secret;
 use sqlx::PgPool;
 
-use crate::authentication::UserId;
 use crate::authentication::validate_credentials;
 use crate::authentication::AuthError;
 use crate::authentication::Credentials;
+use crate::authentication::UserId;
 use crate::routes::admin::dashboard::get_username;
 use crate::utils::{e500, see_other};
 
@@ -21,7 +21,7 @@ pub struct FormData {
 pub async fn change_password(
     form: web::Form<FormData>,
     pool: web::Data<PgPool>,
-    user_id: web::ReqData<UserId>
+    user_id: web::ReqData<UserId>,
 ) -> Result<HttpResponse, actix_web::Error> {
     let user_id = user_id.into_inner();
     if form.new_password.expose_secret() != form.new_password_check.expose_secret() {

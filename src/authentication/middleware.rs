@@ -1,7 +1,7 @@
-use actix_web::HttpMessage;
-use actix_web::{FromRequest, body::MessageBody};
 use actix_web::dev::{ServiceRequest, ServiceResponse};
 use actix_web::error::InternalError;
+use actix_web::HttpMessage;
+use actix_web::{body::MessageBody, FromRequest};
 use actix_web_lab::middleware::Next;
 use uuid::Uuid;
 
