@@ -4,7 +4,7 @@ use crate::{
     email_client::EmailClient,
     routes::{
         admin_dashboard, change_password, change_password_form, confirm, health_check, home,
-        log_out, login, login_form, publish_newsletter, subscribe, publish_newsletter_form,
+        log_out, login, login_form, publish_newsletter, publish_newsletter_form, subscribe,
     },
 };
 use actix_session::{storage::RedisSessionStore, SessionMiddleware};
